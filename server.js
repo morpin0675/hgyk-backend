@@ -221,10 +221,10 @@ Sadece JSON döndür:
 {
   "text": "Atasözü veya deyimin kendisi",
   "type": "atasözü veya deyim",
-  "meaning": "Ne anlama geldiğini çocukça/sade bir dille açıkla",
+  "meaning": "TDK sözlüğündeki gibi resmi ve net bir anlam açıklaması",
   "example": "Günlük hayattan bu atasözünün/deyimin kullanıldığı doğal bir örnek cümle",
   "origin": "Kısa bir köken veya tarihsel bilgi (1-2 cümle)",
-  "emoji": "İlgili bir emoji"
+  "emoji": "Atasözünün/deyimin ANLAMINLA DOĞRUDAN İLGİLİ tek bir emoji. Müzik, dans gibi genel emojiler KULLANMA. Örnek: sabır için ⏳, dostluk için 🤝, para için 💰, akıllılık için 🧠, çalışma için 💪"
 }`;
 
   try {

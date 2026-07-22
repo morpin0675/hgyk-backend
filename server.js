@@ -36,20 +36,32 @@ app.post('/api/words', checkSecret, async (req, res) => {
 
   const today = new Date().toLocaleDateString('tr-TR', { weekday:'long', day:'numeric', month:'long' });
   
-  // Her kullanıcıya farklı kelime için rastgele kategori ve tohum
-  const categories = ['duygular', 'doğa', 'sanat', 'bilim', 'ilişkiler', 'yemek', 'seyahat', 'tarih', 'felsefe', 'müzik', 'edebiyat', 'spor', 'iş hayatı', 'aile', 'şehir hayatı'];
-  const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-  const randomSeed = Math.floor(Math.random() * 10000);
+  // Her istek için tam rastgele seçim
+  const categories = ['duygular ve hisler', 'doğa ve çevre', 'sanat ve edebiyat', 'bilim ve teknoloji', 
+    'insan ilişkileri', 'yemek ve mutfak', 'seyahat ve coğrafya', 'tarih ve kültür', 
+    'felsefe ve düşünce', 'müzik ve dans', 'spor ve oyun', 'iş ve ekonomi', 
+    'aile ve toplum', 'sağlık ve beden', 'din ve inanç', 'hukuk ve adalet',
+    'mimari ve şehir', 'deniz ve su', 'hayvanlar', 'bitkiler ve bahçe'];
+  
+  // Her istekte farklı kategori kombinasyonu seç
+  const shuffled = categories.sort(() => Math.random() - 0.5);
+  const selectedCategories = shuffled.slice(0, 3).join(', ');
+  const randomSeed = Math.floor(Math.random() * 99999);
+  const timestamp = Date.now();
 
-  const prompt = `Sen bir Türkçe dil öğretmenisin. Bugün ${today}. (Seed: ${randomSeed})
-${level} seviyesine uygun, ${count} FARKLI ve İLGİNÇ Türkçe kelime seç.
-Bu sefer özellikle "${randomCategory}" kategorisine ağırlık ver ama diğer kategorilerden de seç.
-${avoidStr}
+  const prompt = `Sen bir Türkçe dil öğretmenisin. Görevin FARKLI ve ÇEŞİTLİ kelimeler seçmek.
+Bugün: ${today} | Rastgele ID: ${randomSeed}-${timestamp}
+Seviye: ${level} | Kategori odağı: ${selectedCategories}
 
-Seçim kriterleri:
-- Günlük hayatta kullanışlı olsun
-- Farklı kategorilerden seç (duygu, doğa, sanat, bilim, ilişki vb.)
-- Az bilinen ama öğrenmeye değer kelimeler tercih et
+${avoidStr ? avoidStr + '
+
+' : ''}${count} FARKLI Türkçe kelime seç. Her kelime FARKLI bir kategoriden olsun.
+
+ÖNEMLİ KURALLAR:
+- Çok bilinen basit kelimeleri SEÇME (ev, araba, masa, su gibi)
+- Az bilinen, ilginç, zengin anlamlı kelimeler seç
+- Her kelime farklı bir kelime türünden olabilir (isim, sıfat, fiil, zarf)
+- Seçtiğin kategorilere sadık kal: ${selectedCategories}
 
 Sadece JSON array döndür, başka hiçbir şey yazma:
 
@@ -195,11 +207,19 @@ app.post('/api/proverb', checkSecret, async (req, res) => {
 
   const avoidStr = avoid.length > 0 ? `Şunları KULLANMA: ${avoid.slice(-20).join(' | ')}` : '';
   const today = new Date().toLocaleDateString('tr-TR', { weekday:'long', day:'numeric', month:'long' });
-  const randomSeed2 = Math.floor(Math.random() * 10000);
+  const randomSeed2 = Math.floor(Math.random() * 99999);
+  const timestamp2 = Date.now();
+  const proverbTypes = ['atasözü', 'deyim', 'atasözü', 'deyim', 'halk söyleyişi'];
+  const randomType = proverbTypes[Math.floor(Math.random() * proverbTypes.length)];
 
-  const prompt = `Sen bir Türk dili ve kültürü uzmanısın. Bugün ${today}. (Seed: ${randomSeed2})
-${difficulty} bir Türkçe atasözü VEYA deyim seç.
-${avoidStr}
+  const prompt = `Sen bir Türk dili ve kültürü uzmanısın.
+Bugün: ${today} | ID: ${randomSeed2}-${timestamp2} | Tür tercihi: ${randomType}
+
+${difficulty} bir Türkçe ${randomType} seç.
+${avoidStr ? avoidStr + '
+' : ''}
+ÖNEMLİ: Her gün FARKLI bir ${randomType} seç. Çok bilinen klişe olanları SEÇME.
+Az bilinen, zengin ve ilginç olanları tercih et.
 
 Sadece JSON döndür:
 {

@@ -53,9 +53,7 @@ app.post('/api/words', checkSecret, async (req, res) => {
 Bugün: ${today} | Rastgele ID: ${randomSeed}-${timestamp}
 Seviye: ${level} | Kategori odağı: ${selectedCategories}
 
-${avoidStr ? avoidStr + '
-
-' : ''}${count} FARKLI Türkçe kelime seç. Her kelime FARKLI bir kategoriden olsun.
+${avoidStr ? (avoidStr + '\n\n') : ''}${count} FARKLI Türkçe kelime seç. Her kelime FARKLI bir kategoriden olsun.
 
 ÖNEMLİ KURALLAR:
 - Çok bilinen basit kelimeleri SEÇME (ev, araba, masa, su gibi)
@@ -216,9 +214,7 @@ app.post('/api/proverb', checkSecret, async (req, res) => {
 Bugün: ${today} | ID: ${randomSeed2}-${timestamp2} | Tür tercihi: ${randomType}
 
 ${difficulty} bir Türkçe ${randomType} seç.
-${avoidStr ? avoidStr + '
-' : ''}
-ÖNEMLİ: Her gün FARKLI bir ${randomType} seç. Çok bilinen klişe olanları SEÇME.
+${avoidStr ? (avoidStr + '\n') : ''}\nÖNEMLİ: Her gün FARKLI bir ${randomType} seç. Çok bilinen klişe olanları SEÇME.
 Az bilinen, zengin ve ilginç olanları tercih et.
 
 Sadece JSON döndür:

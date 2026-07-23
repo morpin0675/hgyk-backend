@@ -3,6 +3,41 @@ const express = require('express');
 const cors = require('cors');
 const Anthropic = require('@anthropic-ai/sdk');
 
+
+// Seviye tanımları
+const LEVEL_DEFINITIONS = {
+  A1: {
+    desc: 'Başlangıç seviyesi (6-8 yaş). Çok basit, günlük hayatta sık kullanılan kelimeler.',
+    examples: 'ev, araba, yemek, su, kitap, okul, anne, baba, güzel, büyük',
+    avoid: 'Asla soyut, felsefi, teknik veya nadir kelimeler kullanma.',
+  },
+  A2: {
+    desc: 'Temel seviye (9-11 yaş). Basit günlük kelimeler, somut kavramlar.',
+    examples: 'mutlu, heyecan, renk, mevsim, hayvan, arkadaş, öğretmen',
+    avoid: 'Akademik veya nadir kelimelerden kaçın.',
+  },
+  B1: {
+    desc: 'Orta seviye (12-14 yaş). Günlük kullanımda orta zorlukta kelimeler.',
+    examples: 'sabır, cesaret, özgürlük, merak, umut, başarı, sorumluluk',
+    avoid: 'Çok soyut felsefi veya teknik terimlerden kaçın.',
+  },
+  B2: {
+    desc: 'Üst orta seviye (15-22 yaş). Eğitimli bir kişinin kullandığı zengin kelimeler.',
+    examples: 'mütevazı, özgün, eleştiri, analiz, empati, ironi, nostalji',
+    avoid: 'Çok nadir veya arkaik kelimelerden kaçın.',
+  },
+  C1: {
+    desc: 'İleri seviye (23+ yaş). Az bilinen ama kullanışlı, zengin anlamlı kelimeler.',
+    examples: 'feraset, mütevekkil, veciz, müstağni, heterodoks, epistemoloji',
+    avoid: 'Tamamen arkaik veya günlük hayatta hiç kullanılmayan kelimelerden kaçın.',
+  },
+  C2: {
+    desc: 'Usta seviye (65+ yaş). Derin anlamlı, edebi ve felsefi kelimeler.',
+    examples: 'zümrüdüanka, mütefekkir, rindane, tekebbür, müstesna',
+    avoid: 'Herkesin bildiği basit kelimelerden kaçın.',
+  },
+};
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });

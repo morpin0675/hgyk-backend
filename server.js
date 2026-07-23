@@ -78,7 +78,7 @@ Sadece JSON array döndür, başka hiçbir şey yazma:
 
   try {
     const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-5',
       max_tokens: 2000,
       messages: [{ role: 'user', content: prompt }],
     });
@@ -127,7 +127,7 @@ Sadece JSON array döndür:
 
   try {
     const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-5',
       max_tokens: 3000,
       messages: [{ role: 'user', content: prompt }],
     });
@@ -166,7 +166,7 @@ Sadece JSON döndür.`;
 
   try {
     const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-5',
       max_tokens: 200,
       messages: [{ role: 'user', content: prompt }],
     });
@@ -229,7 +229,7 @@ Sadece JSON döndür:
 
   try {
     const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-5',
       max_tokens: 800,
       messages: [{ role: 'user', content: prompt }],
     });
